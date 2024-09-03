@@ -87,6 +87,11 @@ jobs:
         working-directory: starter/backend
 
     steps:
+      - name: Install Kustomize
+        uses: kustomize-everything/action-kustomize@v1
+        with:
+          version: '5.0.0'
+          sha256-checksum: '2e8c28a80ce213528251f489db8d2dcbea7c63b986c8f7595a39fc76ff871cd7'    
       # Check out the code from the repository.
       - uses: actions/checkout@v2
 
@@ -106,9 +111,8 @@ jobs:
       # Deploy the Docker image to the Kubernetes cluster.
       - name: Deploy to Kubernetes
         run: |
-          kubectl set image deployment/backend backend=${{ env.ECR_REPOSITORY_URI }}:${{ github.sha }}
-          kubectl apply -f k8s/deployment.yaml --validate=false
-          kubectl apply -f k8s/service.yaml --validate=false
+          kustomize edit set image backend=${{ env.ECR_REPOSITORY_URI }}:${{ github.sha }}
+          kustomize build | kubectl apply -f -
 
 env:
   AWS_REGION: "us-east-1"
