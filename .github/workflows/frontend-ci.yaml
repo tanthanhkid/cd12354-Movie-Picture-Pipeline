@@ -23,14 +23,13 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
       
-      # Navigate to the frontend directory.
-      - run: cd starter/frontend
-      
       # Install the dependencies.
       - run: npm ci
+        working-directory: starter/frontend
 
       # Run the linter.
       - run: npm run lint
+        working-directory: starter/frontend
 
   test:
     runs-on: ubuntu-latest
@@ -45,15 +44,15 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
-      
-      # Navigate to the frontend directory.
-      - run: cd starter/frontend
+       
       
       # Install the dependencies.
       - run: npm ci
+        working-directory: starter/frontend
 
       # Run the tests.
       - run: CI=true npm test
+        working-directory: starter/frontend
 
   build:
     needs: [lint, test]
@@ -66,15 +65,16 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 16.x
-      
-      # Navigate to the frontend directory.
-      - run: cd starter/frontend
+       
       
       # Install the dependencies.
       - run: npm ci
+        working-directory: starter/frontend
 
       # Build the Docker image for production deployment.
       - run: docker build --build-arg REACT_APP_MOVIE_API_URL=http://localhost:5000 -t frontend-app .
+        working-directory: starter/frontend
 
       # Send a console message at completion.
       - run: echo "Hello ${{ github.actor }}. You pushed to ${{ github.repository }} at $(date)."
+        working-directory: starter/frontend
