@@ -87,10 +87,8 @@ jobs:
         working-directory: starter/backend
 
     steps:
-      - name: Set up Kustomize
-        run: |
-          curl -s "https://raw.githubusercontent.com/kubernetes-sigs/kustomize/master/hack/install_kustomize.sh" | bash
-          sudo mv kustomize /usr/local/bin/ 
+      - name: Install Kustomize
+        uses: kustomize-everything/action-kustomize 
           
       # Check out the code from the repository.
       - uses: actions/checkout@v2
