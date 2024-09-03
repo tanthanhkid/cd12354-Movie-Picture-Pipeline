@@ -22,7 +22,10 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
-
+      
+      # Navigate to the frontend directory.
+      - run: cd starter/frontend
+      
       # Install the dependencies.
       - run: npm ci
 
@@ -42,7 +45,10 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
-
+      
+      # Navigate to the frontend directory.
+      - run: cd starter/frontend
+      
       # Install the dependencies.
       - run: npm ci
 
@@ -60,7 +66,10 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 16.x
-
+      
+      # Navigate to the frontend directory.
+      - run: cd starter/frontend
+      
       # Install the dependencies.
       - run: npm ci
 
