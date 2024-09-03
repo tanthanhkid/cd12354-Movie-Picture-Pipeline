@@ -112,6 +112,7 @@ jobs:
 
       - uses: imranismail/setup-kustomize@v2
       - run: |
+          cd k8s
           kustomize edit set image backend=${{ env.ECR_REPOSITORY_URI }}:${{ github.sha }}
           kustomize build | kubectl apply -f -
 
