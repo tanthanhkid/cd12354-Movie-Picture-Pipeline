@@ -100,11 +100,11 @@ jobs:
           aws eks --region ${{ env.AWS_REGION }} update-kubeconfig --name ${{ env.AWS_CLUSTER_NAME }}
 
       
-      # Deploy the Docker image to the Kubernetes cluster.
+      - uses: imranismail/setup-kustomize@v2
       - run: |
-          kubectl set image deployment/frontend frontend=${{ env.ECR_REPOSITORY_URI }}:${{ github.sha }}
-          kubectl apply -f k8s/deployment.yaml --validate=false
-          kubectl apply -f k8s/service.yaml --validate=false 
+          cd k8s
+          kustomize edit set image frontend=${{ env.ECR_REPOSITORY_URI }}:${{ github.sha }}
+          kustomize build | kubectl apply -f -
 
 env:
   AWS_REGION: "us-east-1"
