@@ -103,6 +103,6 @@ jobs:
 
 env:
   AWS_REGION: "us-east-1"
-  ECR_REPOSITORY_URI: "${{ env.AWS_ACCOUNT_ID }}.dkr.ecr.us-east-1.amazonaws.com/frontend"
+  ECR_REPOSITORY_URI: "${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.us-east-1.amazonaws.com/frontend"
   REACT_APP_MOVIE_API_URL: "http://localhost:5000" 
   AWS_CLUSTER_NAME: "cluster" 
