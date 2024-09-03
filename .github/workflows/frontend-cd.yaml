@@ -51,9 +51,7 @@ jobs:
       - uses: actions/setup-node@v2
         with:
           node-version: '18.x'
-      
-      # Navigate to the frontend directory.
-      - run: cd starter/frontend 
+       
       
       # Install dependencies.
       - run: npm ci 
