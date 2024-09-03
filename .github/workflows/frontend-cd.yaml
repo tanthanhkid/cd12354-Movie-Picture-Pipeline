@@ -23,7 +23,10 @@ jobs:
       - uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
-
+      
+      # Navigate to the frontend directory.
+      - run: cd starter/frontend
+      
       # Install the dependencies.
       - run: npm ci
 
@@ -45,7 +48,10 @@ jobs:
       - uses: actions/setup-node@v2
         with:
           node-version: '18.x'
-
+      
+      # Navigate to the frontend directory.
+      - run: cd starter/frontend
+      
       # Install dependencies.
       - run: npm ci
 
@@ -80,7 +86,10 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ env.AWS_REGION }}
-          
+
+      # Navigate to the frontend directory.
+      - run: cd starter/frontend
+      
       # Set up kubectl.
       - run: |
           aws eks --region ${{ env.AWS_REGION }} update-kubeconfig --name ${{ env.AWS_CLUSTER_NAME }}
@@ -94,6 +103,6 @@ jobs:
 
 env:
   AWS_REGION: "us-east-1"
-  ECR_REPOSITORY_URI: "593331310640.dkr.ecr.us-east-1.amazonaws.com/frontend"
+  ECR_REPOSITORY_URI: "${{ env.AWS_ACCOUNT_ID }}.dkr.ecr.us-east-1.amazonaws.com/frontend"
   REACT_APP_MOVIE_API_URL: "http://localhost:5000" 
   AWS_CLUSTER_NAME: "cluster" 
