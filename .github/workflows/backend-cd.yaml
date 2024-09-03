@@ -88,7 +88,10 @@ jobs:
 
     steps:
       - name: Install Kustomize
-        uses: kustomize-everything/action-kustomize 
+        uses: kustomize-everything/action-kustomize
+        with:
+          version: '5.0.0'
+          sha256-checksum: '2e8c28a80ce213528251f489db8d2dcbea7c63b986c8f7595a39fc76ff871cd7'
           
       # Check out the code from the repository.
       - uses: actions/checkout@v2
