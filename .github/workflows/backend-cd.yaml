@@ -24,9 +24,7 @@ jobs:
         uses: actions/setup-python@v2
         with:
           python-version: '3.x'
-
-      # Navigate to the backend directory.
-      - run: cd starter/backend
+ 
 
       # Install dependencies.
       - name: Install dependencies
@@ -56,9 +54,7 @@ jobs:
         uses: actions/setup-python@v2
         with:
           python-version: '3.x'
-
-      # Navigate to the backend directory.
-      - run: cd starter/backend
+ 
       
       # Install dependencies.
       - name: Install dependencies
@@ -100,9 +96,7 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ env.AWS_REGION }}
-
-      # Navigate to the backend directory.
-      - run: cd starter/backend
+ 
 
       # Set up kubectl.
       - name: Set up kubectl
