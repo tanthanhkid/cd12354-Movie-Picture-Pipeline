@@ -97,15 +97,20 @@ jobs:
       - run: |
           aws eks --region ${{ env.AWS_REGION }} update-kubeconfig --name ${{ env.AWS_CLUSTER_NAME }}
 
+      # Get LoadBalancer IP and set it as an environment variable
+      - name: Get LoadBalancer IP
+        id: get_ip
+        run: |
+          export MOVIE_API_URL=$(kubectl get svc backend -o jsonpath="{.status.loadBalancer.ingress[0].ip}")
+          echo "MOVIE_API_URL=$MOVIE_API_URL" >> $GITHUB_ENV
       
       - uses: imranismail/setup-kustomize@v2
       - run: |
           cd k8s
-          kustomize edit set image frontend=${{ env.ECR_REPOSITORY_URI }}:${{ github.sha }}
+          kustomize edit set image frontend=${{ env.MOVIE_API_URL }}:${{ github.sha }}
           kustomize build | kubectl apply -f -
 
 env:
   AWS_REGION: "us-east-1"
-  ECR_REPOSITORY_URI: "${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.us-east-1.amazonaws.com/frontend"
-  REACT_APP_MOVIE_API_URL: "http://localhost:5000" 
+  ECR_REPOSITORY_URI: "${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.us-east-1.amazonaws.com/frontend" 
   AWS_CLUSTER_NAME: "cluster" 
