@@ -72,7 +72,7 @@ jobs:
       - name: Get LoadBalancer IP
         id: get_ip
         run: |
-          export MOVIE_API_URL=$(kubectl get svc backend -o jsonpath="{.status.loadBalancer.ingress[0].ip}")
+          export MOVIE_API_URL=$(kubectl get svc backend -o jsonpath="{.status.loadBalancer.ingress[0].hostname}")
           echo "MOVIE_API_URL=$MOVIE_API_URL" >> $GITHUB_ENV
 
       # Build the Docker image.
